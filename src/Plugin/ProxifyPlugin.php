@@ -139,7 +139,8 @@ class ProxifyPlugin extends AbstractPlugin {
 	public function onCompleted(ProxyEvent $event){
 		
 		// to be used when proxifying all the relative links
-		$this->base_url = $event['request']->getUri();
+		//$this->base_url = $event['request']->getUri();
+		$this->base_url = Config::get('base_url');
 		$url_host = parse_url($this->base_url, PHP_URL_HOST);
 		
 		$response = $event['response'];
