@@ -116,7 +116,16 @@ function render_template($file_path, $vars = array()){
 function add_http($url){
 
 	if(!preg_match('#^https?://#i', $url)){
-		$url = 'http://' . $url;
+
+	    //如果 base_url 带 https, 那就加 https
+	    $base_url = Config::get('base_url');
+
+	    if(strpos($base_url,'ttps://')){
+            $url = 'https://' . $url;
+        }else{
+            $url = 'http://' . $url;
+        }
+
 	}
 	
 	return $url;
