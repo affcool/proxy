@@ -142,8 +142,8 @@ class Html {
 	public static function replace_inner($selector, $replace, $html, &$matches = NULL){
 		return self::replace($selector, $replace, $html, true, $matches);
 	}
-	
-	private static function replace($selector, $replace, $html, $replace_inner = false, &$matches = NULL){
+
+    public static function replace($selector, $replace, $html, $replace_inner = false, &$matches = NULL){
 	
 		$start_from = 0;
 		$limit = 300;
@@ -177,6 +177,17 @@ class Html {
 		
 		return $html;
 	}
+
+    public static function str_replace_limit($search, $replace, $subject, $limit=-1){
+        if(is_array($search)){
+            foreach($search as $k=>$v){
+                $search[$k] = '`'. preg_quote($search[$k], '`'). '`';
+            }
+        }else{
+            $search = '`'. preg_quote($search, '`'). '`';
+        }
+        return preg_replace($search, $replace, $subject, $limit);
+    }
 }
 
 ?>

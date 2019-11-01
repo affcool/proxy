@@ -137,7 +137,13 @@ function base64_url_decode($input){
 
 function url_encrypt($url, $key = false){
 
-	return str_replace(Config::get('target'),app_url(),$url);
+    // 同步处理https 跟 http
+    $target = Config::get('target');
+    $http_target = str_replace('http://','https://',$target);
+    $https_target = str_replace('https://','http://',$target);
+    
+	$url =  str_replace($http_target,app_url(),$url);
+    return str_replace($https_target,app_url(),$url);
 }
 
 function url_decrypt($url, $key = false){
@@ -205,6 +211,12 @@ function host()
 function config_file()
 {
     return str_replace('.','_',str_replace(':','.',host())).'.php';
+}
+
+
+function plugin_folder()
+{
+    return str_replace('.','_',str_replace(':','.',host()));
 }
 
 ?>
