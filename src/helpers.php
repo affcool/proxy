@@ -180,7 +180,17 @@ function proxify_url($url, $base_url = ''){
 function rel2abs($rel, $base)
 {
 	if (strpos($rel, "//") === 0) {
-		return "http:" . $rel;
+
+        $base_url = Config::get('base_url');
+
+        if(strpos($base_url,'ttps://')){
+
+            return "https:" . $rel;
+
+        }else{
+
+            return "http:" . $rel;
+        }
 	}
 	
 	if($rel == ""){
